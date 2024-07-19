@@ -1,0 +1,3 @@
+npm install express body-parser cookie-parser compression cors
+
+npm install -D @types/body-parser @types/cookie-parser @types/compression @types/cors
