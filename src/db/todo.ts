@@ -11,5 +11,5 @@ export const getTodos = () => TodoModel.find();
 export const getTodoById = (id:string) => TodoModel.findById(id);
 export const createTodo = (values:Record<string,any>) => new TodoModel(values)
     .save().then((todo) => todo.toObject());
-export const deleteTodo = (id:string) => TodoModel.findByIdAndUpdate(id);
+export const deleteTodo = (id:string) => TodoModel.findByIdAndDelete(id);
 export const updateTodo = (id:string,values:Record<string,any>) => TodoModel.findByIdAndUpdate(id,values);

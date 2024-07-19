@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateTodoApi = exports.createTodoApi = exports.getAllTodos = void 0;
+exports.deleteTodoApi = exports.updateTodoApi = exports.createTodoApi = exports.getAllTodos = void 0;
 const todo_1 = require("../db/todo");
 const getAllTodos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -50,3 +50,14 @@ const updateTodoApi = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.updateTodoApi = updateTodoApi;
+const deleteTodoApi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const todo = yield (0, todo_1.deleteTodo)(id);
+        return res.status(200).json({ message: "Todo deleted successfully!" });
+    }
+    catch (error) {
+        return res.status(400).json(error);
+    }
+});
+exports.deleteTodoApi = deleteTodoApi;

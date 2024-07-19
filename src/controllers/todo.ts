@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTodos,createTodo,updateTodo } from '../db/todo';
+import { getTodos,createTodo,updateTodo,deleteTodo } from '../db/todo';
 
 export const getAllTodos = async(req:express.Request,res:express.Response) => {
     try{
@@ -38,5 +38,16 @@ export const updateTodoApi = async(req:express.Request, res:express.Response) =>
 
     } catch(error) {
         return res.status(400).json(error)
+    }
+}
+
+
+export const deleteTodoApi = async(req:express.Request, res:express.Response) => {
+    try{
+        const {id} = req.params;
+        const todo = await deleteTodo(id);
+        return res.status(200).json({message:"Todo deleted successfully!"});
+    } catch(error) {
+        return res.status(400).json(error);
     }
 }

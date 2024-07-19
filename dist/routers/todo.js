@@ -6,4 +6,5 @@ exports.default = (router) => {
     router.get('/todos', todo_1.getAllTodos);
     router.post('/todos/create', middlewares_1.isAuthenticated, todo_1.createTodoApi);
     router.put('/todos/:id', middlewares_1.isAuthenticated, todo_1.updateTodoApi);
+    router.delete('/todos/:id', middlewares_1.isAuthenticated, todo_1.deleteTodoApi);
 };
