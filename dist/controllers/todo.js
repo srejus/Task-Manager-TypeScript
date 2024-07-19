@@ -9,22 +9,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTodoApi = exports.updateTodoApi = exports.createTodoApi = exports.getAllTodos = void 0;
+exports.deleteTodoApi = exports.updateTodoApi = exports.createTodoApi = exports.getSingleTodo = exports.getAllTodos = void 0;
 const todo_1 = require("../db/todo");
 const getAllTodos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const todos = yield (0, todo_1.getTodos)();
-        return res.status(200).json(todos).end();
+        return res.status(200).json(todos);
     }
     catch (error) {
         return res.status(400).json(error);
     }
 });
 exports.getAllTodos = getAllTodos;
+const getSingleTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const todo = yield (0, todo_1.getTodoById)(id);
+        return res.status(200).json(todo);
+    }
+    catch (error) {
+        return res.status(400).json(error);
+    }
+});
+exports.getSingleTodo = getSingleTodo;
 const createTodoApi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, is_completed } = req.body;
-        if (!title || !is_completed) {
+        if (!title || is_completed === undefined) {
             return res.status(400).json({ error: "title and is_completed are required!" });
         }
         const todo = yield (0, todo_1.createTodo)({
