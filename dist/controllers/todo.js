@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTodoApi = exports.updateTodoApi = exports.createTodoApi = exports.getSingleTodo = exports.getAllTodos = void 0;
 const todo_1 = require("../db/todo");
+const users_1 = require("../db/users");
 const getAllTodos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const todos = yield (0, todo_1.getTodos)();
@@ -35,12 +36,15 @@ exports.getSingleTodo = getSingleTodo;
 const createTodoApi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, is_completed } = req.body;
+        const sessionToken = req.cookies['SREJUS-AUTH'];
+        const existingUser = yield (0, users_1.getUserBySessionToken)(sessionToken);
         if (!title || is_completed === undefined) {
             return res.status(400).json({ error: "title and is_completed are required!" });
         }
         const todo = yield (0, todo_1.createTodo)({
             title,
-            is_completed
+            is_completed,
+            user: existingUser._id
         });
         return res.status(200).json(todo).end();
     }

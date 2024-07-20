@@ -7,7 +7,8 @@ exports.updateTodo = exports.deleteTodo = exports.createTodo = exports.getTodoBy
 const mongoose_1 = __importDefault(require("mongoose"));
 const TodoSchema = new mongoose_1.default.Schema({
     title: { type: String, requried: true },
-    is_completed: { type: Boolean, default: false }
+    is_completed: { type: Boolean, default: false },
+    user: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'User', required: true }
 });
 exports.TodoModel = mongoose_1.default.model("Todo", TodoSchema);
 const getTodos = () => exports.TodoModel.find();
